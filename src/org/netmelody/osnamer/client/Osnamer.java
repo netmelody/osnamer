@@ -136,7 +136,9 @@ public class Osnamer implements EntryPoint {
                         }
 
                         public void onSuccess(Boolean result) {
-                            resultGrid.setHTML(rowIndex, 1, Boolean.FALSE.equals(result) ? "FREE": "IN USE!");
+                            resultGrid.setHTML(rowIndex, 1, Boolean.FALSE.equals(result)
+                                    ? "<span style=\"color:green;\">FREE</span>"
+                                    : "<span style=\"color:red;\">IN USE!</span>");
                         }
                     });
                     row++;
