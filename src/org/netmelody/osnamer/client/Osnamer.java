@@ -13,6 +13,7 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -28,19 +29,27 @@ public class Osnamer implements EntryPoint {
     private final ProjectNameLookupServiceAsync nameLookupService = GWT.create(ProjectNameLookupService.class);
 
     public void onModuleLoad() {
-        final Button sendButton = new Button("Send");
+        final Button sendButton = new Button("Search");
         final TextBox nameField = new TextBox();
-        nameField.setText("GWT User");
         final Label errorLabel = new Label();
+        final Grid resultGrid = new Grid(ProjectHostName.values().length, 2);
 
-        // We can add style names to widgets
+        nameField.setText("junit");
         sendButton.addStyleName("sendButton");
-
+        resultGrid.setVisible(false);
+        
+        int row = 0;
+        for(ProjectHostName hostName : ProjectHostName.values()) {
+            resultGrid.setHTML(row++, 0, hostName.toString());
+        }
+        
         // Add the nameField and sendButton to the RootPanel
         // Use RootPanel.get() to get the entire body element
         RootPanel.get("nameFieldContainer").add(nameField);
         RootPanel.get("sendButtonContainer").add(sendButton);
         RootPanel.get("errorLabelContainer").add(errorLabel);
+        RootPanel.get("resultContainer").add(resultGrid);
+
 
         // Focus the cursor on the name field when the app loads
         nameField.setFocus(true);
@@ -105,31 +114,33 @@ public class Osnamer implements EntryPoint {
                 }
 
                 // Then, we send the input to the server.
-                sendButton.setEnabled(false);
                 textToServerLabel.setText(textToServer);
                 serverResponseLabel.setText("");
-                nameLookupService.isInUse(ProjectHostName.GITHUB, textToServer,
-                        new AsyncCallback<Boolean>() {
-                            public void onFailure(Throwable caught) {
-                                // Show the RPC error message to the user
-                                dialogBox
-                                        .setText("Remote Procedure Call - Failure");
-                                serverResponseLabel
-                                        .addStyleName("serverResponseLabelError");
-                                serverResponseLabel.setHTML(SERVER_ERROR);
-                                dialogBox.center();
-                                closeButton.setFocus(true);
-                            }
+                
+                for (int i = 0; i < ProjectHostName.values().length; i++) {
+                    resultGrid.setHTML(i, 1, "<img src=\"s.gif\"></img>");
+                }
+                resultGrid.setVisible(true);
+                
+                int row = 0;
+                for(ProjectHostName hostName : ProjectHostName.values()) {
+                    final int rowIndex = row;
+                    nameLookupService.isInUse(hostName, textToServer, new AsyncCallback<Boolean>() {
+                        public void onFailure(Throwable caught) {
+                            // Show the RPC error message to the user
+                            dialogBox.setText("Remote Procedure Call - Failure");
+                            serverResponseLabel.addStyleName("serverResponseLabelError");
+                            serverResponseLabel.setHTML(SERVER_ERROR);
+                            dialogBox.center();
+                            closeButton.setFocus(true);
+                        }
 
-                            public void onSuccess(Boolean result) {
-                                dialogBox.setText("Remote Procedure Call");
-                                serverResponseLabel
-                                        .removeStyleName("serverResponseLabelError");
-                                serverResponseLabel.setHTML(result.toString());
-                                dialogBox.center();
-                                closeButton.setFocus(true);
-                            }
-                        });
+                        public void onSuccess(Boolean result) {
+                            resultGrid.setHTML(rowIndex, 1, Boolean.FALSE.equals(result) ? "FREE": "IN USE!");
+                        }
+                    });
+                    row++;
+                }
             }
         }
 
