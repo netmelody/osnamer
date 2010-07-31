@@ -1,4 +1,4 @@
-package org.netmelody.osnamer.server;
+package org.netmelody.osnamer.server.projecthosts;
 
 import org.htmlparser.NodeFilter;
 import org.htmlparser.beans.FilterBean;
@@ -9,30 +9,15 @@ import org.htmlparser.filters.NodeClassFilter;
 import org.htmlparser.filters.RegexFilter;
 import org.htmlparser.tags.Div;
 import org.htmlparser.tags.LinkTag;
-import org.netmelody.osnamer.client.GreetingService;
-import org.netmelody.osnamer.shared.FieldVerifier;
+import org.netmelody.osnamer.server.ProjectHost;
 
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+public final class GitHub implements ProjectHost {
 
-/**
- * The server side implementation of the RPC service.
- */
-@SuppressWarnings("serial")
-public class GreetingServiceImpl extends RemoteServiceServlet implements
-        GreetingService {
-
-    public String greetServer(String name) throws IllegalArgumentException {
-        // Verify that the input is valid. 
-        if (!FieldVerifier.isValidName(name)) {
-            // If the input is not valid, throw an IllegalArgumentException back to
-            // the client.
-            throw new IllegalArgumentException(
-                    "Name must be at least 4 characters long");
-        }
-
-        FilterBean bean = createFilter(name);
-        bean.setURL("http://github.com/search?type=Repositories&q=" + name);
-        return bean.getNodes().toHtml();
+    @Override
+    public boolean isHosting(String projectName) {
+        FilterBean bean = createFilter(projectName);
+        bean.setURL("http://github.com/search?type=Repositories&q=" + projectName);
+        return bean.getNodes().size() > 0;
     }
     
     private FilterBean createFilter(String projectName) {
@@ -70,4 +55,3 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
         return bean;
     }
 }
-

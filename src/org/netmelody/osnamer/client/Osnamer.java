@@ -1,6 +1,8 @@
 package org.netmelody.osnamer.client;
 
 import org.netmelody.osnamer.shared.FieldVerifier;
+import org.netmelody.osnamer.shared.ProjectHostName;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -17,27 +19,14 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-/**
- * Entry point classes define <code>onModuleLoad()</code>.
- */
 public class Osnamer implements EntryPoint {
-    /**
-     * The message displayed to the user when the server cannot be reached or
-     * returns an error.
-     */
+
     private static final String SERVER_ERROR = "An error occurred while "
             + "attempting to contact the server. Please check your network "
             + "connection and try again.";
 
-    /**
-     * Create a remote service proxy to talk to the server-side Greeting service.
-     */
-    private final GreetingServiceAsync greetingService = GWT
-            .create(GreetingService.class);
+    private final ProjectNameLookupServiceAsync nameLookupService = GWT.create(ProjectNameLookupService.class);
 
-    /**
-     * This is the entry point method.
-     */
     public void onModuleLoad() {
         final Button sendButton = new Button("Send");
         final TextBox nameField = new TextBox();
@@ -119,8 +108,8 @@ public class Osnamer implements EntryPoint {
                 sendButton.setEnabled(false);
                 textToServerLabel.setText(textToServer);
                 serverResponseLabel.setText("");
-                greetingService.greetServer(textToServer,
-                        new AsyncCallback<String>() {
+                nameLookupService.isInUse(ProjectHostName.GITHUB, textToServer,
+                        new AsyncCallback<Boolean>() {
                             public void onFailure(Throwable caught) {
                                 // Show the RPC error message to the user
                                 dialogBox
@@ -132,11 +121,11 @@ public class Osnamer implements EntryPoint {
                                 closeButton.setFocus(true);
                             }
 
-                            public void onSuccess(String result) {
+                            public void onSuccess(Boolean result) {
                                 dialogBox.setText("Remote Procedure Call");
                                 serverResponseLabel
                                         .removeStyleName("serverResponseLabelError");
-                                serverResponseLabel.setHTML(result);
+                                serverResponseLabel.setHTML(result.toString());
                                 dialogBox.center();
                                 closeButton.setFocus(true);
                             }
