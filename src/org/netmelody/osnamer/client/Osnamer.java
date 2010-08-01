@@ -38,6 +38,7 @@ public class Osnamer implements EntryPoint {
         nameField.setText("junit");
         sendButton.addStyleName("sendButton");
         resultGrid.setVisible(false);
+        resultGrid.setCellSpacing(10);
         
         int row = 0;
         for(ProjectHostName hostName : ProjectHostName.values()) {
