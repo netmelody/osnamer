@@ -41,7 +41,7 @@ public class Osnamer implements EntryPoint {
         
         int row = 0;
         for(ProjectHostName hostName : ProjectHostName.values()) {
-            resultGrid.setHTML(row++, 0, hostName.toString());
+            resultGrid.setHTML(row++, 0, hostName.getHtmlDesc());
         }
         
         // Add the nameField and sendButton to the RootPanel

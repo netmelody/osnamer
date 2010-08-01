@@ -1,6 +1,16 @@
 package org.netmelody.osnamer.shared;
 
 public enum ProjectHostName {
-    GITHUB,
-    BITBUCKET
+    GITHUB("<img src=\"http://github.com/images/modules/header/logov3.png\" alt=\"GitHub\""),
+    BITBUCKET("<img src=\"http://bitbucket-assets.s3.amazonaws.com/img/logo_myriad.png\" alt=\"bitbucket\"");
+
+    private final String htmlDesc;
+
+    private ProjectHostName(String htmlDesc) {
+        this.htmlDesc = htmlDesc;
+    }
+    
+    public String getHtmlDesc() {
+        return htmlDesc;
+    }
 }
