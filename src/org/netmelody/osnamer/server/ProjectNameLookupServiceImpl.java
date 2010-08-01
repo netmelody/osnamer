@@ -13,10 +13,11 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class ProjectNameLookupServiceImpl extends RemoteServiceServlet implements ProjectNameLookupService {
 
     private final ProjectHostVendor projectHostVendor = new ProjectHostVendor();
+    private final FieldVerifier fieldVerifier = new FieldVerifier();
     
     public boolean isInUse(ProjectHostName hostName, String projectName) {
-        if (!FieldVerifier.isValidName(projectName)) {
-            throw new IllegalArgumentException("Name must be at least 4 characters long");
+        if (!fieldVerifier.isValidName(projectName)) {
+            throw new IllegalArgumentException(fieldVerifier.getFailureMessage());
         }
         
         return projectHostVendor.getHostFor(hostName).isHosting(projectName);

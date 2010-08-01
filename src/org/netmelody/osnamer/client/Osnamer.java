@@ -26,8 +26,9 @@ public class Osnamer implements EntryPoint {
             + "attempting to contact the server. Please check your network "
             + "connection and try again.";
 
+    private final FieldVerifier fieldVerifier = new FieldVerifier();
     private final ProjectNameLookupServiceAsync nameLookupService = GWT.create(ProjectNameLookupService.class);
-
+    
     public void onModuleLoad() {
         final Button sendButton = new Button("Search");
         final TextBox nameField = new TextBox();
@@ -108,8 +109,8 @@ public class Osnamer implements EntryPoint {
                 // First, we validate the input.
                 errorLabel.setText("");
                 String textToServer = nameField.getText();
-                if (!FieldVerifier.isValidName(textToServer)) {
-                    errorLabel.setText("Please enter at least four characters");
+                if (!fieldVerifier.isValidName(textToServer)) {
+                    errorLabel.setText(fieldVerifier.getFailureMessage());
                     return;
                 }
 
