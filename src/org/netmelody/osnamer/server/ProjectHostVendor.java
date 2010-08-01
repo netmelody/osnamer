@@ -3,6 +3,7 @@ package org.netmelody.osnamer.server;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.netmelody.osnamer.server.projecthosts.Assembla;
 import org.netmelody.osnamer.server.projecthosts.Bitbucket;
 import org.netmelody.osnamer.server.projecthosts.CodePlex;
 import org.netmelody.osnamer.server.projecthosts.EmptyHost;
@@ -24,6 +25,7 @@ public final class ProjectHostVendor {
         hostMap.put(ProjectHostName.LAUNCHPAD, new Launchpad());
         hostMap.put(ProjectHostName.PROJECTKENAI, new ProjectKenai());
         hostMap.put(ProjectHostName.OHLOH, new Ohloh());
+        hostMap.put(ProjectHostName.ASSEMBLA, new Assembla());
     }
     
     public ProjectHost getHostFor(ProjectHostName hostName) {

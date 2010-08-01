@@ -7,7 +7,8 @@ public enum ProjectHostName {
     CODEPLEX("<img src=\"http://i1.codeplex.com/Images/v17027/logo-home.png\" alt=\"CodePlex\" style=\"background-color: lightgray;\""),
     LAUNCHPAD("<img src=\"https://launchpad.net/@@/launchpad-logo-and-name-hierarchy.png\" alt=\"Launchpad\""),
     PROJECTKENAI("<img src=\"http://www.techcrunchit.com/wp-content/uploads/2010/02/ProjectKenai.jpg\" alt=\"Project Kenai\""),
-    OHLOH("<img src=\"http://upload.wikimedia.org/wikipedia/en/2/2d/Ohloh_logo.png\" alt=\"Ohloh\"");
+    OHLOH("<img src=\"http://upload.wikimedia.org/wikipedia/en/2/2d/Ohloh_logo.png\" alt=\"Ohloh\""),
+    ASSEMBLA("<img src=\"http://www.assembla.com/images/blue/assembla-logo.gif\" alt=\"Assembla\"");
 
     private final String htmlDesc;
 
