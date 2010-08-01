@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.netmelody.osnamer.server.projecthosts.Bitbucket;
+import org.netmelody.osnamer.server.projecthosts.CodePlex;
 import org.netmelody.osnamer.server.projecthosts.EmptyHost;
 import org.netmelody.osnamer.server.projecthosts.GitHub;
 import org.netmelody.osnamer.server.projecthosts.Sourceforge;
@@ -16,6 +17,7 @@ public final class ProjectHostVendor {
         hostMap.put(ProjectHostName.GITHUB, new GitHub());
         hostMap.put(ProjectHostName.BITBUCKET, new Bitbucket());
         hostMap.put(ProjectHostName.SOURCEFORGE, new Sourceforge());
+        hostMap.put(ProjectHostName.CODEPLEX, new CodePlex());
     }
     
     public ProjectHost getHostFor(ProjectHostName hostName) {
