@@ -8,6 +8,7 @@ import org.netmelody.osnamer.server.projecthosts.CodePlex;
 import org.netmelody.osnamer.server.projecthosts.EmptyHost;
 import org.netmelody.osnamer.server.projecthosts.GitHub;
 import org.netmelody.osnamer.server.projecthosts.Launchpad;
+import org.netmelody.osnamer.server.projecthosts.ProjectKenai;
 import org.netmelody.osnamer.server.projecthosts.Sourceforge;
 import org.netmelody.osnamer.shared.ProjectHostName;
 
@@ -20,6 +21,7 @@ public final class ProjectHostVendor {
         hostMap.put(ProjectHostName.SOURCEFORGE, new Sourceforge());
         hostMap.put(ProjectHostName.CODEPLEX, new CodePlex());
         hostMap.put(ProjectHostName.LAUNCHPAD, new Launchpad());
+        hostMap.put(ProjectHostName.PROJECTKENAI, new ProjectKenai());
     }
     
     public ProjectHost getHostFor(ProjectHostName hostName) {
