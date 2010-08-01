@@ -7,6 +7,7 @@ import org.netmelody.osnamer.server.projecthosts.Bitbucket;
 import org.netmelody.osnamer.server.projecthosts.CodePlex;
 import org.netmelody.osnamer.server.projecthosts.EmptyHost;
 import org.netmelody.osnamer.server.projecthosts.GitHub;
+import org.netmelody.osnamer.server.projecthosts.Launchpad;
 import org.netmelody.osnamer.server.projecthosts.Sourceforge;
 import org.netmelody.osnamer.shared.ProjectHostName;
 
@@ -18,6 +19,7 @@ public final class ProjectHostVendor {
         hostMap.put(ProjectHostName.BITBUCKET, new Bitbucket());
         hostMap.put(ProjectHostName.SOURCEFORGE, new Sourceforge());
         hostMap.put(ProjectHostName.CODEPLEX, new CodePlex());
+        hostMap.put(ProjectHostName.LAUNCHPAD, new Launchpad());
     }
     
     public ProjectHost getHostFor(ProjectHostName hostName) {
