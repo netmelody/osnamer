@@ -2,7 +2,8 @@ package org.netmelody.osnamer.shared;
 
 public enum ProjectHostName {
     GITHUB("<img src=\"http://github.com/images/modules/header/logov3.png\" alt=\"GitHub\""),
-    BITBUCKET("<img src=\"http://bitbucket-assets.s3.amazonaws.com/img/logo_myriad.png\" alt=\"bitbucket\"");
+    BITBUCKET("<img src=\"http://bitbucket-assets.s3.amazonaws.com/img/logo_myriad.png\" alt=\"bitbucket\""),
+    SOURCEFORGE("<img src=\"http://mirrorbrain.org/static/images/misc/sourceforge-logo.png\" alt=\"sourceforge\"");
 
     private final String htmlDesc;
 

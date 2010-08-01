@@ -6,6 +6,7 @@ import java.util.Map;
 import org.netmelody.osnamer.server.projecthosts.Bitbucket;
 import org.netmelody.osnamer.server.projecthosts.EmptyHost;
 import org.netmelody.osnamer.server.projecthosts.GitHub;
+import org.netmelody.osnamer.server.projecthosts.Sourceforge;
 import org.netmelody.osnamer.shared.ProjectHostName;
 
 public final class ProjectHostVendor {
@@ -14,6 +15,7 @@ public final class ProjectHostVendor {
     {
         hostMap.put(ProjectHostName.GITHUB, new GitHub());
         hostMap.put(ProjectHostName.BITBUCKET, new Bitbucket());
+        hostMap.put(ProjectHostName.SOURCEFORGE, new Sourceforge());
     }
     
     public ProjectHost getHostFor(ProjectHostName hostName) {
